@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Node / frontend (SvelteKit)
+node_modules/
+build/
+dist/
+.env
+.env.local
+
+# Deno
+.deno/
+deps/
+deno.lock
+
+# Docker
+*.pid
+*.log
+docker-data/
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# System files
+Thumbs.db
