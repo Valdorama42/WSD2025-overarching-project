@@ -1,2 +1,16 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+    import { PUBLIC_API_URL } from "$env/static/public";
+    let visits = $state(0);
+  
+    const fetchVisits = async () => {
+      const response = await fetch(`${PUBLIC_API_URL}/api/visits`);
+      const data = await response.json();
+      visits = data.visits;
+    };
+  
+    $effect(() => {
+      fetchVisits();
+    })
+</script>
+  
+<h1>Visit count: {visits}</h1>
