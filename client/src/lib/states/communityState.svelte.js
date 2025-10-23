@@ -1,21 +1,17 @@
-import { browser } from '$app/environment';
+import { browser } from "$app/environment";
 
-const COMMUNITIES_KEY = 'communities';
+const COMMUNITIES_KEY = "communities";
 let initialCommunities = [];
 
 if (browser && localStorage.getItem(COMMUNITIES_KEY) != null) {
-    try {
-        initialCommunities = JSON.parse(localStorage.getItem(COMMUNITIES_KEY));
-    } catch (e) {
-        console.error('Failed to parse communities from localStorage:', e);
-    }
+    initialCommunities = JSON.parse(localStorage.getItem(COMMUNITIES_KEY));
 }
 
 let communityState = $state(initialCommunities);
 
 const saveCommunities = () => {
     localStorage.setItem(COMMUNITIES_KEY, JSON.stringify(communityState));
-};
+}
 
 const useCommunityState = () => {
     return {
@@ -25,8 +21,8 @@ const useCommunityState = () => {
         getOne: (id) => {
             return communityState.find((c) => c.id === id);
         },
-        addCommunity: (name) => {
-            communityState.push({ id: bookState.length + 1, name });
+        addCommunity: (name, description) => {
+            communityState.push({id: communityState.length + 1, name, description});
             saveCommunities();
         },
         removeCommunity: (id) => {
