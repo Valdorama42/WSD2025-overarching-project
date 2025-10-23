@@ -7,7 +7,7 @@
     let description = $state("");
 
     const addCommunity = () => {
-        communityState.addCommunity(cName, cDescription);
+        communityState.addCommunity(name, description);
         name = "";
         description = "";
     }
