@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from "$app/environment";
 
 const POSTS_KEY = "posts";
 let initialPosts = {};
@@ -22,17 +22,17 @@ const usePostState = () => {
             let community = postState[communityId] || [];
             return community.find(post => post.id === postId);
         },
-        addPost: (id, title, content) => {
-            if (!postState[id]) {
-                postState[id] = [];
+        addPost: (communityId, title, content) => {
+            if (!postState[communityId]) {
+                postState[communityId] = [];
             }
-            let community = postState[id];
-            community.push({ id: todo.length + 1, title, content });
+            let community = postState[communityId];
+            community.push({ id: community.length + 1, title, content });
             savePosts();
         },
-        removePost: (id, postId) => {
-            let community = postState[id];
-            postState[id] = community.filter(post => post.id !== postId);
+        removePost: (communityId, postId) => {
+            let community = postState[communityId];
+            postState[communityId] = community.filter(post => post.id !== postId);
             savePosts();
         },
     };
