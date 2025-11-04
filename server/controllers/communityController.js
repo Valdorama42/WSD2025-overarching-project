@@ -1,7 +1,7 @@
 import * as communityRepository from '../repositories/communityRepository.js';
 
 const create = async (c) => {
-    const community = c.req.json();
+    const community = await c.req.json();
     if (!community.name || !community.description) {
         return c.json({ error: 'Name and description are required' }, 400);
     }
@@ -16,7 +16,7 @@ const readAll = async (c) => {
 
 const readOne = async (c) => {
     const id = Number(c.req.param("communityId"));
-    if (Number.isInteger(id)) {
+    if (!Number.isInteger(id)) {
         return c.json({ error: 'Invalid community ID' }, 400);
     }
 
@@ -29,7 +29,7 @@ const readOne = async (c) => {
 
 const deleteOne = async (c) => {
     const id = Number(c.req.param("communityId"));
-    if (Number.isInteger(id)) {
+    if (!Number.isInteger(id)) {
         return c.json({ error: 'Invalid community ID' }, 400);
     }
 
