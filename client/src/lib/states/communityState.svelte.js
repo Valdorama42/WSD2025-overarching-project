@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import * as communitiesApi from "$lib/apis/communitiesApi.svelte";
+import * as communitiesApi from "$lib/apis/communitiesApi.js";
 
 let communityState = $state([]);
 
