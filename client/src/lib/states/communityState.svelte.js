@@ -9,9 +9,9 @@ const initCommunities = async () => {
     }
 };
 
-const initComminty = async (id) => {
+const initCommunity = async (id) => {
     if (browser) {
-        const community = await communitiesApi.readComminity(id);
+        const community = await communitiesApi.readCommunity(id);
         if (community && !communityState.find((c) => c.id === community.id)) {
             communityState.push(community);
         }
@@ -22,9 +22,6 @@ const useCommunityState = () => {
     return {
         get communities() {
             return communityState;
-        },
-        getOne: (id) => {
-            return communityState.find((c) => c.id === id);
         },
         addCommunity: (community) => {
             communitiesApi.createCommunity(community).then((newCommunity) => {
@@ -45,4 +42,4 @@ const useCommunityState = () => {
     };
 };
 
-export { useCommunityState, initCommunities, initComminty };
+export { useCommunityState, initCommunities, initCommunity };

@@ -3,10 +3,20 @@ import * as postsApi from "$lib/apis/postsApi.js";
 
 let postState = $state({});
 
-const initPosts = async (todoId) => {
-    if (!browser) return;
-    postState = await postsApi.readPosts(todoId);
-}
+const initPosts = async (communityId) => {
+    if (!browser) {
+        return; 
+    }
+    postState[communityId] = await postsApi.readPosts(communityId);
+};
+
+const initPost = async (communityId, postId) => {
+    if (!browser) {
+        return;
+    }
+    const post = await postsApi.readPost(communityId, postId);
+    postState[communityId] = [post];
+};
 
 const usePostState = () => {
     return {
@@ -29,4 +39,4 @@ const usePostState = () => {
     };
 };
 
-export { usePostState, initPosts };
+export { usePostState, initPosts, initPost };

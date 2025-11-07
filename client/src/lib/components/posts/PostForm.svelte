@@ -1,15 +1,14 @@
 <script>
     import { usePostState } from "$lib/states/postState.svelte.js";
 
-    let { todoId } = $props();
+    let { communityId } = $props();
 
     let postState = usePostState();
 
     const add = (e) => {
         e.preventDefault();
-        const data = new FormData(e.target);
-        const post = Object.fromEntries(data);
-        postState.addPost(todoId, post);
+        const post = Object.fromEntries(new FormData(e.target));
+        postState.addPost(communityId, post);
         e.target.reset();
     };
 </script>

@@ -5,7 +5,7 @@
 
     let { communityId } = $props();
 
-    let community = $derived(communityState.communities.find(c => c.id === communityId));
+    let community = $derived(communityState.communities.find((c) => c.id === communityId));
 </script>
 
 <h1>{community ? community.name : "Loading..."}</h1>

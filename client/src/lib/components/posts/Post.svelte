@@ -5,7 +5,9 @@
 
     let { communityId, postId } = $props();
 
-    let post = $derived(postState.posts.find(p => p.id === postId && p.communityId === communityId));
+    let post = $derived(
+        postState.posts[communityId]?.find((p) => p.id === postId)
+    );
 </script>
 
 <h1>{post ? post.title : "Loading..."}</h1>
