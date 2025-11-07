@@ -1,0 +1,43 @@
+import { PUBLIC_API_URL } from '$env/static/public';
+
+const readCommunities = async () => {
+    const response = await fetch(`${PUBLIC_API_URL}/communities`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch communities');
+    }
+    return await response.json();
+};
+
+const readCommunity = async (communityId) => {
+    const response = await fetch(`${PUBLIC_API_URL}/communities/${communityId}`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch community');
+    }
+    return await response.json();
+};
+
+const createCommunity = async (community) => {
+    const response = await fetch(`${PUBLIC_API_URL}/communities`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(community)
+    });
+    if (!response.ok) {
+        throw new Error('Failed to create community');
+    }
+    return await response.json();
+};
+
+const deleteCommunity = async (communityId) => {
+    const response = await fetch(`${PUBLIC_API_URL}/communities/${communityId}`, {
+        method: 'DELETE'
+    });
+    if (!response.ok) {
+        throw new Error('Failed to delete community');
+    }
+    return await response.json();
+};
+
+export { readCommunities, readCommunity, createCommunity, deleteCommunity };

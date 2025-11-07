@@ -1,17 +1,22 @@
 import { browser } from "$app/environment";
+import * as communitiesApi from "$lib/apis/communitiesApi.svelte";
 
-const COMMUNITIES_KEY = "communities";
-let initialCommunities = [];
+let communityState = $state([]);
 
-if (browser && localStorage.getItem(COMMUNITIES_KEY) != null) {
-    initialCommunities = JSON.parse(localStorage.getItem(COMMUNITIES_KEY));
-}
+const initCommunities = async () => {
+    if (browser) {
+        communityState = await communitiesApi.readCommunities();
+    }
+};
 
-let communityState = $state(initialCommunities);
-
-const saveCommunities = () => {
-    localStorage.setItem(COMMUNITIES_KEY, JSON.stringify(communityState));
-}
+const initComminty = async (id) => {
+    if (browser) {
+        const community = await communitiesApi.readComminity(id);
+        if (community && !communityState.find((c) => c.id === community.id)) {
+            communityState.push(community);
+        }
+    }
+};
 
 const useCommunityState = () => {
     return {
@@ -21,15 +26,23 @@ const useCommunityState = () => {
         getOne: (id) => {
             return communityState.find((c) => c.id === id);
         },
-        addCommunity: (name, description) => {
-            communityState.push({id: communityState.length + 1, name, description});
-            saveCommunities();
+        addCommunity: (community) => {
+            communitiesApi.createCommunity(community).then((newCommunity) => {
+                communityState.push(newCommunity);
+            });
         },
         removeCommunity: (id) => {
-            communityState = communityState.filter((c) => c.id !== id);
-            saveCommunities();
+            communitiesApi.deleteCommunity(id).then(() => {
+                communityState = communityState.filter((c) => c.id !== id);
+            });
+        },
+        updateCommunity: (community) => {
+            const index = communityState.findIndex((c) => c.id === community.id);
+            if (index !== -1) {
+                communityState[index] = community;
+            }
         },
     };
 };
 
-export { useCommunityState };
+export { useCommunityState, initCommunities, initComminty };
