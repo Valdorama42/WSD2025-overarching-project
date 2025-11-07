@@ -1,16 +1,11 @@
 import { browser } from "$app/environment";
+import * as postsApi from "$lib/apis/postsApi.js";
 
-const POSTS_KEY = "posts";
-let initialPosts = {};
+let postState = $state({});
 
-if (browser && localStorage.getItem(POSTS_KEY) != null) {
-    initialPosts = JSON.parse(localStorage.getItem(POSTS_KEY));
-}
-
-let postState = $state(initialPosts);
-
-const savePosts = () => {
-    localStorage.setItem(POSTS_KEY, JSON.stringify(postState));
+const initPosts = async (todoId) => {
+    if (!browser) return;
+    postState = await postsApi.readPosts(todoId);
 }
 
 const usePostState = () => {
@@ -18,24 +13,20 @@ const usePostState = () => {
         get posts() {
             return postState;
         },
-        getPost: (communityId, postId) => {
-            let community = postState[communityId] || [];
-            return community.find(post => post.id === postId);
-        },
-        addPost: (communityId, title, content) => {
-            if (!postState[communityId]) {
-                postState[communityId] = [];
-            }
-            let community = postState[communityId];
-            community.push({ id: community.length + 1, title, content });
-            savePosts();
+        addPost: (communityId, post) => {
+            postsApi.createPost(communityId, post).then((newPost) => {
+                const posts = postState[communityId] || [];
+                posts.push(newPost);
+                postState[communityId] = posts;
+            });
         },
         removePost: (communityId, postId) => {
-            let community = postState[communityId];
-            postState[communityId] = community.filter(post => post.id !== postId);
-            savePosts();
+            postsApi.deletePost(communityId, postId).then(() => {
+                const posts = postState[communityId] || [];
+                postState[communityId] = posts.filter(post => post.id !== postId);
+            });
         },
     };
 };
 
-export { usePostState };
+export { usePostState, initPosts };
