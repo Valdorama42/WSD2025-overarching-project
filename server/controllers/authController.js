@@ -24,12 +24,12 @@ const login = async (c) => {
 
     const foundUser = await authRepository.findByEmail(user.email);
     if (!foundUser) {
-        return c.json({ message: "Incorrect email or password." }, 401);
+        return c.json({ error: "Invalid email or password" }, 401);
     }
 
     const isValid = verify(user.password, foundUser.password_hash);
     if (!isValid) {
-        return c.json({ message: "Incorrect email or password." }, 401);
+        return c.json({ error: "Invalid email or password" }, 401);
     }
 
     const payload = {
