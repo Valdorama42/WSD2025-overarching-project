@@ -16,18 +16,19 @@ app.post("/api/auth/register", authController.register);
 app.post("/api/auth/login", authController.login);
 
 app.post("/api/communities", middlewares.authenticate, communityController.create);
+app.delete("/api/communities/:communityId", middlewares.authenticate, communityController.deleteOne);
 app.get("/api/communities", communityController.readAll);
 app.get("/api/communities/:communityId", communityController.readOne);
-app.delete("/api/communities/:communityId", middlewares.authenticate, communityController.deleteOne);
 
-app.post("/api/communities/:communityId/posts", postController.create);
+
+app.post("/api/communities/:communityId/posts", middlewares.authenticate, postController.create);
+app.delete("/api/communities/:communityId/posts/:postId", middlewares.authenticate, postController.deleteOne);
 app.get("/api/communities/:communityId/posts", postController.readAll);
 app.get("/api/communities/:communityId/posts/:postId", postController.readOne);
-app.delete("/api/communities/:communityId/posts/:postId", postController.deleteOne);
+
 
 app.get("/api/communities/:communityId/posts/:postId/comments", commentController.readAll);
-app.post("/api/communities/:communityId/posts/:postId/comments", commentController.create);
-app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", commentController.deleteOne);
-
+app.post("/api/communities/:communityId/posts/:postId/comments", middlewares.authenticate, commentController.create);
+app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", middlewares.authenticate, commentController.deleteOne);
 
 export default app;
