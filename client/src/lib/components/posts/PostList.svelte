@@ -1,6 +1,9 @@
 <script>
     import { usePostState } from "$lib/states/postState.svelte.js";
-    let postState = usePostState();
+    import { useAuthState } from "$lib/states/authState.svelte.js";
+
+    const postState = usePostState();
+    const authState = useAuthState();
 
     let { communityId } = $props();
 
@@ -14,7 +17,9 @@
         <li>
             <h2><a href={`/communities/${communityId}/posts/${post.id}`}>{post.title}</a></h2>
             <p>{post.content}</p>
-            <button onclick={() => removePost(communityId, post.id)}>Remove</button>
+            {#if authState.user && authState.user.id === post.created_by}
+                <button onclick={() => removePost(communityId, post.id)}>Remove</button>
+            {/if}
         </li>
     {/each}
 </ul>

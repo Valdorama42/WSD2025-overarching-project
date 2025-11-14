@@ -1,8 +1,11 @@
 <script>
     import { useCommentState } from "$lib/states/commentState.svelte.js";
+    import { useAuthState } from "$lib/states/authState.svelte.js";
   
     let { communityId, postId } = $props();
+
     const commentState = useCommentState();
+    const authState = useAuthState();
   
     const submit = async (e) => {
       e.preventDefault();
@@ -11,8 +14,9 @@
       await commentState.addComment(communityId, postId, data);
       e.target.reset();
     };
-  </script>
+</script>
   
+{#if authState.user}
   <form onsubmit={submit}>
     <label>Add a comment:
         <textarea name="content" placeholder="Comment content"></textarea>
@@ -20,4 +24,5 @@
     <br />
     <button type="submit">Add comment</button>
   </form>
+{/if}
   
