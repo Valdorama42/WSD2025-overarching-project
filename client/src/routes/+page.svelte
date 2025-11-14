@@ -11,6 +11,4 @@
 
 {#if authState.user}
     <a href="/communities">Go to communities</a>
-{:else}
-    <p>Please <a href="/auth/login">login</a> or <a href="/auth/register">register</a> to continue.</p>
 {/if}

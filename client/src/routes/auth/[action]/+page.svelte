@@ -36,7 +36,7 @@
     };
 </script>
 
-<h1>{data.action === "login" ? "Login" : "Register"}</h1>
+<h2>{data.action === "login" ? "Login" : "Register"}</h2>
 
 {#if message}
     <div>
