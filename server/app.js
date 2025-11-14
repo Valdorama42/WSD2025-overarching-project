@@ -1,3 +1,8 @@
+// This version of the application does not do 
+// data validation or thorough error handling. 
+// Also this version uses hardcoded jwt secrets
+// which are not viable for production
+
 import { Hono } from "@hono/hono";
 import { cors } from "@hono/hono/cors";
 import { logger } from "@hono/hono/logger";
