@@ -1,11 +1,13 @@
 import * as communityRepository from '../repositories/communityRepository.js';
 
 const create = async (c) => {
+    const user = c.get("user");
     const community = await c.req.json();
+
     if (!community.name || !community.description) {
-        return c.json({ error: 'Name and description are required' }, 400);
+        return c.json({ error: "Missing required fields" }, 400);
     }
-    const newCommunity = await communityRepository.create(community);
+    const newCommunity = await communityRepository.create(user.id, community);
     return c.json(newCommunity, 201);
 };
 
@@ -28,16 +30,18 @@ const readOne = async (c) => {
 };
 
 const deleteOne = async (c) => {
+    const user = c.get("user");
     const id = Number(c.req.param("communityId"));
+
     if (!Number.isInteger(id)) {
         return c.json({ error: 'Invalid community ID' }, 400);
     }
 
-    const deletedCommunity = await communityRepository.deleteById(id);
+    const deletedCommunity = await communityRepository.deleteById(user.id, id);
     if (!deletedCommunity) {
-        return c.json({ error: 'Community not found' }, 404);
+        return c.json({ error: 'Community not found or unauthorized' }, 404);
     }
-    return c.json(deletedCommunity);
+    return c.json(deletedCommunity, 200);
 };
 
 export { create, readAll, readOne, deleteOne };
