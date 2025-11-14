@@ -15,7 +15,7 @@ const authenticate = async (c, next) => {
         const payload = await jwt.verify(token, JWT_SECRET);
         c.set("user", payload);
         await next();
-    } catch (err) {
+    } catch (_err) {
         return c.json({ error: "Invalid or expired token" }, 401);
     }
 };

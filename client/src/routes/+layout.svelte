@@ -4,21 +4,25 @@
     let { children } = $props();
 
     const authState = useAuthState();
+
+
 </script>
 
 <header>
     <a href="/">Home</a>
-    
-    {#if authState.user}
+    <br/>
+
+    {#if authState.user} <!-- Logged in -->
         <div>
             <span>Hello, {authState.user.email}!</span>
             <button onclick={() => authState.logout()}>Logout</button>
         </div>
     {:else}
-        <ul>
-            <li><a href="/auth/login">Login</a></li>
-            <li><a href="/auth/register">Register</a></li>
-        </ul>
+        <span>Hello anonymous!</span>
+        <nav>
+            <a href="/auth/login">Login</a>
+            <a href="/auth/register">Register</a>
+        </nav>
     {/if}
 </header>
 
