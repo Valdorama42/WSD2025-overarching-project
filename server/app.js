@@ -4,11 +4,15 @@ import { logger } from "@hono/hono/logger";
 import * as communityController from "./controllers/communityController.js";
 import * as postController from "./controllers/postController.js";
 import * as commentController from "./controllers/commentController.js";
+import * as authController from "./controllers/authController.js";
 
 const app = new Hono();
 
 app.use("/*", cors());
 app.use("/*", logger());
+
+app.post("/api/auth/register", authController.register);
+app.post("/api/auth/login", authController.login);
 
 app.post("/api/communities", communityController.create);
 app.get("/api/communities", communityController.readAll);
