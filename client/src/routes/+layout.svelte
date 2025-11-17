@@ -1,4 +1,5 @@
 <script>
+    import "../app.css";
     import { useAuthState } from "$lib/states/authState.svelte.js";
     
     let { children } = $props();
