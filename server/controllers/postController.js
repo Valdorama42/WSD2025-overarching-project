@@ -137,4 +137,18 @@ const downVote = async (c) => {
   );
 };
 
-export { create, readAll, readOne, deleteOne, upVote, downVote };
+const readHomePage = async (c) => {
+  const posts = await postRepository.findRecent();
+
+  const result = await Promise.all(
+    posts.map(async (post) => ({
+      ...post,
+      upvotes: await postRepository.countUpVotes(post.id),
+      downvotes: await postRepository.countDownVotes(post.id),
+      comments: await postRepository.countComments(post.id),
+    }))
+  );
+  return c.json(result, 200);
+}
+
+export { create, readAll, readOne, deleteOne, upVote, downVote, readHomePage };

@@ -21,6 +21,9 @@ app.use("/*", logger());
 app.post("/api/auth/register", authController.register);
 app.post("/api/auth/login", authController.login);
 
+//Homepage Route
+app.get("/api/homepage", postController.readHomePage);
+
 //Community Routes
 app.post("/api/communities", middlewares.authenticate, communityController.create);
 app.delete("/api/communities/:communityId", middlewares.authenticate, communityController.deleteOne);

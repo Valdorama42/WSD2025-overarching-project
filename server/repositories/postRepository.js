@@ -87,6 +87,24 @@ const countDownVotes = async (postId) => {
   return Number(result[0].count);
 };
 
+const findRecent = async () => {
+  return await sql`
+    SELECT * FROM posts
+    WHERE created_at >= NOW() - INTERVAL '3 days'
+      AND parent_post_id IS NULL
+    ORDER BY created_at DESC
+    LIMIT 10;
+  `;
+};
+
+const countComments = async (postId) => {
+  const result = await sql`
+    SELECT COUNT(*) FROM posts
+    WHERE parent_post_id = ${postId};
+  `;
+  return Number(result[0].count);
+}
+
 export {
   create,
   findAll,
@@ -96,4 +114,6 @@ export {
   downVote,
   countUpVotes,
   countDownVotes,
+  findRecent,
+  countComments,
 };
