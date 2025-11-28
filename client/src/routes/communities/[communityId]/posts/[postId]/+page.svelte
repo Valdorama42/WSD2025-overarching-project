@@ -16,6 +16,10 @@
     });
 </script>
 
+<svelte:head>
+    <title>Post {postId}</title>
+</svelte:head>
+
 <!-- PAGE WRAPPER -->
 <div class="max-w-3xl mx-auto px-4 space-y-5">
 

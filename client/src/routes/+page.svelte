@@ -13,7 +13,7 @@
 </svelte:head>
 
 <h1 class="text-4xl font-extrabold text-gray-900 mb-8 tracking-tight">
-    Latest Posts
+    Welcome to the home page!
 </h1>
 
 {#if authState.user}

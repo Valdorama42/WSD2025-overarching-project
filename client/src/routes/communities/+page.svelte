@@ -8,6 +8,10 @@
     });
 </script>
 
+<svelte:head>
+    <title>Communities</title>
+</svelte:head>
+
 <h1 class="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
     Communities
 </h1>

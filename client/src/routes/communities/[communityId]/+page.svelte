@@ -14,6 +14,10 @@
     });
 </script>
 
+<svelte:head>
+    <title>Community {communityId}</title>
+</svelte:head>
+
 <div class="max-w-5xl mx-auto space-y-12">
 
     <!-- Community Header -->
