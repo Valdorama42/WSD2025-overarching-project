@@ -23,19 +23,15 @@ const create = async (c) => {
 
   return c.json(
     {
-      id: newComment.id,
+      ...newComment,
       title: null,
-      content: newComment.content,
-      community_id: newComment.community_id,
-      parent_post_id: newComment.parent_post_id,
-      upvotes: newComment.upvotes,
-      downvotes: newComment.downvotes,
-      created_at: newComment.created_at,
-      created_by: newComment.created_by,
+      upvotes: 0,
+      downvotes: 0
     },
-    201,
+    201
   );
 };
+
 
 const readAll = async (c) => {
   const postId = Number(c.req.param("postId"));
@@ -44,26 +40,19 @@ const readAll = async (c) => {
   }
 
   const comments = await commentRepository.findAll(postId);
-  const result = [];
 
-  for (const comment of comments) {
-    const upvotes = await commentRepository.countUpVotes(comment.id);
-    const downvotes = await commentRepository.countDownVotes(comment.id);
-    result.push({
-      id: comment.id,
+  const result = await Promise.all(
+    comments.map(async (comment) => ({
+      ...comment,
       title: null,
-      content: comment.content,
-      community_id: comment.community_id,
-      parent_post_id: comment.parent_post_id,
-      created_at: comment.created_at,
-      upvotes,
-      downvotes,
-      created_by: comment.created_by,
-    });
-  }
+      upvotes: await commentRepository.countUpVotes(comment.id),
+      downvotes: await commentRepository.countDownVotes(comment.id)
+    }))
+  );
 
   return c.json(result, 200);
 };
+
 
 const deleteOne = async (c) => {
   const user = c.get("user");
@@ -80,6 +69,7 @@ const deleteOne = async (c) => {
 
   return c.json(deletedComment, 200);
 };
+
 
 const upVote = async (c) => {
   const user = c.get("user");
@@ -100,19 +90,15 @@ const upVote = async (c) => {
 
   return c.json(
     {
-      id: comment.id,
+      ...comment,
       title: null,
-      content: comment.content,
-      community_id: comment.community_id,
-      parent_post_id: comment.parent_post_id,
-      created_at: comment.created_at,
-      created_by: comment.created_by,
       upvotes,
-      downvotes,
+      downvotes
     },
-    200,
+    200
   );
 };
+
 
 const downVote = async (c) => {
   const user = c.get("user");
@@ -133,18 +119,14 @@ const downVote = async (c) => {
 
   return c.json(
     {
-      id: comment.id,
+      ...comment,
       title: null,
-      content: comment.content,
-      community_id: comment.community_id,
-      parent_post_id: comment.parent_post_id,
-      created_at: comment.created_at,
-      created_by: comment.created_by,
       upvotes,
-      downvotes,
+      downvotes
     },
-    200,
+    200
   );
 };
+
 
 export { create, readAll, deleteOne, upVote, downVote };
