@@ -45,4 +45,26 @@ const deletePost = async (communityId, postId) => {
     return await response.json();
 };
 
+const upVote = async (communityId, postId) => {
+    const response = await authFetch(
+        `${PUBLIC_API_URL}/api/communities/${communityId}/posts/${postId}/upvote`, {
+        method: 'POST',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to upvote post');
+    };
+    return await response.json();
+};
+
+const downVote = async (communityId, postId) => {
+    const response = await authFetch(
+        `${PUBLIC_API_URL}/api/communities/${communityId}/posts/${postId}/downvote`, {
+        method: 'POST',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to downvote post');
+    };
+    return await response.json();
+};
+
 export { readPosts, readPost, createPost, deletePost };

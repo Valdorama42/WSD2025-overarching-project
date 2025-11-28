@@ -25,6 +25,7 @@ const create = async (c) => {
       upvotes: newPost.upvotes || 0,
       downvotes: newPost.downvotes || 0,
       created_at: newPost.created_at,
+      created_by: newPost.created_by,
     },
     201,
   );
@@ -51,6 +52,7 @@ const readAll = async (c) => {
       upvotes,
       downvotes,
       created_at: post.created_at,
+      created_by: post.created_by,
     });
   }
 
@@ -80,6 +82,7 @@ const readOne = async (c) => {
     upvotes,
     downvotes,
     created_at: post.created_at,
+    created_by: post.created_by,
   }, 200);
 };
 
@@ -124,6 +127,7 @@ const upVote = async (c) => {
       upvotes,
       downvotes,
       created_at: post.created_at,
+      created_by: post.created_by,
     },
     200,
   );
@@ -155,7 +159,8 @@ const downVote = async (c) => {
       parent_post_id: post.parent_post_id,
       upvotes,
       downvotes,
-      created_at: post.created_at, 
+      created_at: post.created_at,
+      created_by: post.created_by, 
     },
     200,
   );

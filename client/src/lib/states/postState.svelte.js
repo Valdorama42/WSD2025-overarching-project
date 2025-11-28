@@ -36,6 +36,22 @@ const usePostState = () => {
                 postState[communityId] = posts.filter(post => post.id !== postId);
             });
         },
+        upVotePost: (communityId, postId) => {
+            postsApi.upVote(communityId, postId).then((updatedPost) => {
+                const posts = postState[communityId] || [];
+                postState[communityId] = posts.map(post => 
+                    post.id === postId ? updatedPost : post
+                );
+            });
+        },
+        downVotePost: (communityId, postId) => {
+            postsApi.downVote(communityId, postId).then((updatedPost) => {
+                const posts = postState[communityId] || [];
+                postState[communityId] = posts.map(post => 
+                    post.id === postId ? updatedPost : post
+                );
+            });
+        },
     };
 };
 

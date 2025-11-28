@@ -31,6 +31,7 @@ const create = async (c) => {
       upvotes: newComment.upvotes,
       downvotes: newComment.downvotes,
       created_at: newComment.created_at,
+      created_by: newComment.created_by,
     },
     201,
   );
@@ -57,6 +58,7 @@ const readAll = async (c) => {
       created_at: comment.created_at,
       upvotes,
       downvotes,
+      created_by: comment.created_by,
     });
   }
 
@@ -104,6 +106,7 @@ const upVote = async (c) => {
       community_id: comment.community_id,
       parent_post_id: comment.parent_post_id,
       created_at: comment.created_at,
+      created_by: comment.created_by,
       upvotes,
       downvotes,
     },
@@ -136,6 +139,7 @@ const downVote = async (c) => {
       community_id: comment.community_id,
       parent_post_id: comment.parent_post_id,
       created_at: comment.created_at,
+      created_by: comment.created_by,
       upvotes,
       downvotes,
     },
