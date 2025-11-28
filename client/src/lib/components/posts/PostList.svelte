@@ -20,38 +20,91 @@
     };
 </script>
 
-<ul class="space-y-4 mx-auto max-w-2xl">
+<ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-8 mx-auto max-w-6xl">
     {#each postState.posts[communityId] ?? [] as post}
-        <li class="p-4 border rounded-lg shadow-sm bg-white">
-            <h2 class="text-lg font-semibold text-blue-600 hover:underline">
-                <a href={`/communities/${communityId}/posts/${post.id}`}>{post.title}</a>
-            </h2>
+        <li class="group relative rounded-2xl border bg-white shadow-sm overflow-hidden 
+                   hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <script>
+                let hoverUp = false;
+                let hoverDown = false;
+            </script>
 
-            <p class="text-gray-700 mt-2">{post.content}</p>
+            <!-- Decorative gradient top bar -->
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r 
+                        from-blue-500 via-indigo-500 to-purple-500 opacity-60"></div>
 
-            <p class="mt-2">
-                Upvotes: {post.upvotes ?? 0}, 
-                Downvotes: {post.downvotes ?? 0}
-            </p>
+            <div class="p-6 flex flex-col h-full">
+                <!-- Title -->
+                <h2 class="text-lg font-semibold tracking-tight text-gray-900 
+                           group-hover:text-indigo-600 transition-colors">
+                    <a href={`/communities/${communityId}/posts/${post.id}`}>
+                        {post.title}
+                    </a>
+                </h2>
 
-            {#if authState.user}
-                <button class="mt-2 px-4 py-2 bg-green-500 text-white rounded"
-                    onclick={() => upVote(communityId, post.id)}>
-                    Upvote
-                </button>
+                <!-- Content -->
+                <p class="text-gray-600 mt-2 line-clamp-4">
+                    {post.content}
+                </p>
 
-                <button class="mt-2 ml-2 px-4 py-2 bg-gray-500 text-white rounded"
-                    onclick={() => downVote(communityId, post.id)}>
-                    Downvote
-                </button>
-            {/if}
+                <!-- Voting Section -->
+                {#if authState.user}
+                    <div class="flex items-center gap-3 mt-4">
 
-            {#if authState.user && authState.user.id === post.created_by}
-                <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded"
-                    onclick={() => removePost(communityId, post.id)}>
-                    Remove
-                </button>
-            {/if}
+                        <!-- Hover States -->
+                        <script>
+                            let hoverUp = false;
+                            let hoverDown = false;
+                        </script>
+
+                        <!-- Upvote Button -->
+                        <button
+                            onmouseenter={() => hoverUp = true}
+                            onmouseleave={() => hoverUp = false}
+                            onclick={() => upVote(communityId, post.id)}
+                            class="px-3 py-1.5 rounded-md bg-gray-100 text-gray-700
+                                   hover:bg-green-100 hover:text-green-700
+                                   shadow-sm active:scale-95 transition-all"
+                        >
+                            {#if hoverUp}
+                                Upvote
+                            {:else}
+                                👍 {post.upvotes ?? 0}
+                            {/if}
+                        </button>
+
+                        <!-- Downvote Button -->
+                        <button
+                            onmouseenter={() => hoverDown = true}
+                            onmouseleave={() => hoverDown = false}
+                            onclick={() => downVote(communityId, post.id)}
+                            class="px-3 py-1.5 rounded-md bg-gray-100 text-gray-700
+                                   hover:bg-red-100 hover:text-red-700
+                                   shadow-sm active:scale-95 transition-all"
+                        >
+                            {#if hoverDown}
+                                Downvote
+                            {:else}
+                                👎 {post.downvotes ?? 0}
+                            {/if}
+                        </button>
+                    </div>
+                {/if}
+
+                <!-- Remove Post Button -->
+                {#if authState.user && authState.user.id === post.created_by}
+                    <button 
+                        class="mt-5 px-3 py-1.5 rounded-md bg-red-400 text-white 
+                               hover:bg-red-500 active:scale-95 transition-all shadow-sm"
+                        onclick={() => removePost(communityId, post.id)}
+                    >
+                        Remove
+                    </button>
+                {/if}
+            </div>
         </li>
     {/each}
 </ul>
+
+
+

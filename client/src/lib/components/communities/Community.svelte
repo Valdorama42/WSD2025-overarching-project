@@ -25,9 +25,5 @@
     <p class="text-sm text-gray-700 leading-relaxed relative z-10">
         {community ? community.description : ""}
     </p>
-
-    <p class="text-xs pt-4 text-gray-600 relative z-10">
-        Creator: {community.created_by}
-    </p>
 </div>
 

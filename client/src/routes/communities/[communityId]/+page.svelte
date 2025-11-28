@@ -14,8 +14,25 @@
     });
 </script>
 
-<Community {communityId} />
+<div class="max-w-5xl mx-auto space-y-12">
 
-<PostForm {communityId} />
+    <!-- Community Header -->
+    <section>
+        <Community {communityId} />
+    </section>
 
-<PostList {communityId} />
+    <!-- Create Post -->
+    <section>
+        <PostForm {communityId} />
+    </section>
+
+    <!-- Posts List -->
+    <section class="pt-4">
+        <h2 class="text-3xl font-semibold text-gray-900 mb-5 tracking-tight">
+            Posts in this Community
+        </h2>
+
+        <PostList {communityId} />
+    </section>
+
+</div>
