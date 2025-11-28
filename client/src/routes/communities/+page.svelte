@@ -8,8 +8,18 @@
     });
 </script>
 
-<h1>Communities</h1>
+<h1 class="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+    Communities
+</h1>
 
-<CommunityForm />
+<div>
+    <!-- Form Section -->
+    <section class="mx-auto w-full">
+        <CommunityForm />
+    </section>
 
-<CommunityList />
+    <!-- List Section -->
+    <section>
+        <CommunityList />
+    </section>
+</div>

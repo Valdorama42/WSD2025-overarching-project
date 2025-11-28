@@ -11,7 +11,7 @@
 <div class="flex flex-col h-full">
     <Header />
 
-    <main class="container mx-auto max-w-4xl grow p-4">
+    <main class="grow mx-auto w-full max-w-6xl px-8 py-8">
         {@render children()}
     </main>
 
