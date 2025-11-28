@@ -17,15 +17,9 @@ const create = async (c) => {
 
   return c.json(
     {
-      id: newPost.id,
-      title: newPost.title,
-      content: newPost.content,
-      community_id: newPost.community_id,
-      parent_post_id: newPost.parent_post_id,
-      upvotes: newPost.upvotes || 0,
-      downvotes: newPost.downvotes || 0,
-      created_at: newPost.created_at,
-      created_by: newPost.created_by,
+      ...newPost,
+      upvotes: 0,
+      downvotes: 0,
     },
     201,
   );
@@ -38,24 +32,19 @@ const readAll = async (c) => {
   }
 
   const posts = await postRepository.findAll(communityId);
-  const result = [];
 
-  for (const post of posts) {
-    const upvotes = await postRepository.countUpVotes(post.id);
-    const downvotes = await postRepository.countDownVotes(post.id);
-    result.push({
-      id: post.id,
-      title: post.title,
-      content: post.content,
-      community_id: post.community_id,
-      parent_post_id: post.parent_post_id,
-      upvotes,
-      downvotes,
-      created_at: post.created_at,
-      created_by: post.created_by,
-    });
-  }
-
+  const result = await Promise.all(
+    posts.map(async (post) => {
+      const upvotes = await postRepository.countUpVotes(post.id);
+      const downvotes = await postRepository.countDownVotes(post.id);
+      
+      return {
+        ...post,
+        upvotes,
+        downvotes,
+      };
+    }),
+  );
   return c.json(result, 200);
 };
 
@@ -74,15 +63,9 @@ const readOne = async (c) => {
   const downvotes = await postRepository.countDownVotes(id);
 
   return c.json({
-    id: post.id,
-    title: post.title,
-    content: post.content,
-    community_id: post.community_id,
-    parent_post_id: post.parent_post_id,
+    ...post,
     upvotes,
     downvotes,
-    created_at: post.created_at,
-    created_by: post.created_by,
   }, 200);
 };
 
@@ -119,15 +102,9 @@ const upVote = async (c) => {
 
   return c.json(
     {
-      id: post.id,
-      title: post.title,
-      content: post.content,
-      community_id: post.community_id,
-      parent_post_id: post.parent_post_id,
+      ...post,
       upvotes,
       downvotes,
-      created_at: post.created_at,
-      created_by: post.created_by,
     },
     200,
   );
@@ -152,15 +129,9 @@ const downVote = async (c) => {
 
   return c.json(
     {
-      id: post.id,
-      title: post.title,
-      content: post.content,
-      community_id: post.community_id,
-      parent_post_id: post.parent_post_id,
+      ...post,
       upvotes,
       downvotes,
-      created_at: post.created_at,
-      created_by: post.created_by, 
     },
     200,
   );

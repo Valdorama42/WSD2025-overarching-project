@@ -67,4 +67,4 @@ const downVote = async (communityId, postId) => {
     return await response.json();
 };
 
-export { readPosts, readPost, createPost, deletePost };
+export { readPosts, readPost, createPost, deletePost, upVote, downVote };

@@ -18,11 +18,13 @@ const initPost = async (communityId, postId) => {
     postState[communityId] = [post];
 };
 
+
 const usePostState = () => {
     return {
         get posts() {
             return postState;
         },
+
         addPost: (communityId, post) => {
             postsApi.createPost(communityId, post).then((newPost) => {
                 const posts = postState[communityId] || [];
@@ -30,28 +32,33 @@ const usePostState = () => {
                 postState[communityId] = posts;
             });
         },
+
         removePost: (communityId, postId) => {
             postsApi.deletePost(communityId, postId).then(() => {
                 const posts = postState[communityId] || [];
                 postState[communityId] = posts.filter(post => post.id !== postId);
             });
         },
+
         upVotePost: (communityId, postId) => {
             postsApi.upVote(communityId, postId).then((updatedPost) => {
                 const posts = postState[communityId] || [];
-                postState[communityId] = posts.map(post => 
-                    post.id === postId ? updatedPost : post
+
+                postState[communityId] = posts.map(p =>
+                    p.id === postId ? updatedPost : p
                 );
             });
         },
+
         downVotePost: (communityId, postId) => {
             postsApi.downVote(communityId, postId).then((updatedPost) => {
                 const posts = postState[communityId] || [];
-                postState[communityId] = posts.map(post => 
-                    post.id === postId ? updatedPost : post
+
+                postState[communityId] = posts.map(p =>
+                    p.id === postId ? updatedPost : p
                 );
             });
-        },
+        }
     };
 };
 
