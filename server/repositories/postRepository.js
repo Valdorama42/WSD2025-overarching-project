@@ -18,7 +18,8 @@ const create = async (userId, communityId, post) => {
 const findAll = async (communityId) => {
   return await sql`
     SELECT * FROM posts
-    WHERE community_id = ${communityId};
+    WHERE community_id = ${communityId}
+      AND parent_post_id IS NULL
   `;
 };
 

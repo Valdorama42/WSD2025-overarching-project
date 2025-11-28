@@ -33,6 +33,6 @@
         </h2>
 
         <PostList {communityId} />
+        
     </section>
-
 </div>

@@ -16,8 +16,22 @@
     });
 </script>
 
-<Post {communityId} {postId} />
+<!-- PAGE WRAPPER -->
+<div class="max-w-3xl mx-auto px-4 space-y-5">
 
-<CommentForm {communityId} {postId} />
+    <!-- POST CONTENT -->
+    <section>
+        <Post {communityId} {postId} />
+    </section>
 
-<CommentList {communityId} {postId} />
+    <!-- COMMENT FORM with subtle separators -->
+    <section class="pt-6 border-gray-300">
+        <CommentForm {communityId} {postId} />
+    </section>
+
+    <!-- COMMENT LIST with bottom spacing -->
+    <section class="pb-6 border-b border-gray-300">
+        <CommentList {communityId} {postId} />
+    </section>
+
+</div>

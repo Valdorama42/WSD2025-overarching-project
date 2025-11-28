@@ -36,60 +36,92 @@
     };
 </script>
 
-<h2>{data.action === "login" ? "Login" : "Register"}</h2>
+<!-- WRAPPER (centered card layout) -->
+<div class="flex justify-center items-center py-20 px-4">
+    <div class="w-full max-w-md bg-white shadow-lg rounded-2xl border p-8 space-y-6">
 
-{#if message}
-    <div>
-        <p class="message success">{message}</p>
+        <!-- Title -->
+        <h2 class="text-3xl font-semibold text-gray-900 text-center">
+            {data.action === "login" ? "Login" : "Register"}
+        </h2>
+
+        <!-- Success message -->
+        {#if message}
+            <div class="rounded-md bg-green-50 border border-green-300 p-3 text-green-700 text-sm">
+                {message}
+            </div>
+        {/if}
+
+        <!-- Error message -->
+        {#if errorMessage}
+            <div class="rounded-md bg-red-50 border border-red-300 p-3 text-red-700 text-sm">
+                {errorMessage}
+            </div>
+        {/if}
+
+        <!-- FORM -->
+        <form onsubmit={handleForm} class="space-y-4">
+            <!-- Email -->
+            <label class="block">
+                <span class="text-sm font-medium text-gray-700">Email</span>
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="your@email.com"
+                    required
+                    class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm 
+                           focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 
+                           outline-none transition"
+                />
+            </label>
+
+            <!-- Password -->
+            <label class="block">
+                <span class="text-sm font-medium text-gray-700">Password</span>
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                    class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm 
+                           focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 
+                           outline-none transition"
+                />
+            </label>
+
+            <!-- Submit button -->
+            <button
+                type="submit"
+                disabled={loading}
+                class="w-full py-2.5 rounded-lg text-white font-medium
+                       bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98]
+                       transition disabled:opacity-60 shadow-md"
+            >
+                {loading
+                    ? "Please wait..."
+                    : data.action === "login"
+                        ? "Login"
+                        : "Register"}
+            </button>
+        </form>
+
+        <!-- Switch Link -->
+        <p class="text-center text-sm text-gray-600">
+            {#if data.action === "login"}
+                Don't have an account?
+                <a href="/auth/register" 
+                   class="text-indigo-600 hover:underline font-medium">
+                   Register here
+                </a>.
+            {:else}
+                Already have an account?
+                <a href="/auth/login"
+                   class="text-indigo-600 hover:underline font-medium">
+                    Login here
+                </a>.
+            {/if}
+        </p>
     </div>
-{/if}
-
-{#if errorMessage}
-    <div>
-        <p class="message error">{errorMessage}</p>
-    </div>
-{/if}
-
-<form onsubmit={handleForm}>
-    <label>
-        <span>Email:</span>
-        <input
-            id="email" 
-            type="email" 
-            name="email"
-            placeholder="your@email.com" 
-            required 
-        />
-    </label>
-    <br />
-    <label>
-        <span>Password:</span>
-        <input 
-            id="password" 
-            type="password" 
-            name="password"
-            placeholder="Enter your password" 
-            required 
-        />
-    </label>
-    <br />
-    <button type="submit" disabled={loading}>
-        {loading 
-            ? "Please wait..."
-            : data.action === "login" 
-                ? "Login" 
-                : "Register"}
-    </button>
-</form>
-
-{#if data.action === "login"}
-    <p>
-        Don't have an account? 
-        <a href="/auth/register">Register here</a>.
-    </p>
-{:else}
-    <p>
-        Already have an account? 
-        <a href="/auth/login">Login here</a>.
-    </p>
-{/if}
+</div>

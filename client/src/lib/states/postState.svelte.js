@@ -4,10 +4,13 @@ import * as postsApi from "$lib/apis/postsApi.js";
 let postState = $state({});
 
 const initPosts = async (communityId) => {
-    if (!browser) {
-        return; 
-    }
-    postState[communityId] = await postsApi.readPosts(communityId);
+    console.log("INIT POSTS CALLED WITH:", communityId);
+    if (!browser) return;
+
+    const posts = await postsApi.readPosts(communityId);
+    console.log("POSTS FROM API:", posts);
+
+    postState[communityId] = posts;
 };
 
 const initPost = async (communityId, postId) => {
