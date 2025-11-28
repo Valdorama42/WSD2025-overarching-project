@@ -1,31 +1,19 @@
 <script>
     import "../app.css";
-    import { useAuthState } from "$lib/states/authState.svelte.js";
+    import Header from "$lib/components/layout/Header.svelte";
+    import Footer from "$lib/components/layout/Footer.svelte";
+
     
     let { children } = $props();
 
-    const authState = useAuthState();
-
-
 </script>
 
-<header>
-    <a href="/">Home</a>
-    <a href="/communities">Communities</a>
-    <br/>
+<div class="flex flex-col h-full">
+    <Header />
 
-    {#if authState.user} <!-- Logged in -->
-        <div>
-            <span>Hello, {authState.user.email}!</span>
-            <button onclick={() => authState.logout()}>Logout</button>
-        </div>
-    {:else}
-        <span>Hello anonymous!</span>
-        <nav>
-            <a href="/auth/login">Login</a>
-            <a href="/auth/register">Register</a>
-        </nav>
-    {/if}
-</header>
+    <main class="container mx-auto max-w-4xl grow p-4">
+        {@render children()}
+    </main>
 
-{@render children()}
+    <Footer />
+</div>

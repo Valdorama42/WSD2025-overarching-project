@@ -16,26 +16,32 @@
 </script>
 
 {#if authState.user}
-    <form onsubmit="{addCommunity}">
-        <div>
+    <form class="max-w-md mx-auto mt-6" onsubmit="{addCommunity}">
+        <h2 class="text-2xl mb-4">Create a New Community</h2>
+        <div class="mb-4">
             <label>Community Name:
                 <input 
                     type="text" 
                     id="name" 
                     name="name" 
-                    placeholder="Community name" 
+                    placeholder="Community name"
+                    class="w-full" 
                 />
             </label>
         </div>
-        <div>
+        <div class="mb-4">
             <label>Description:
                 <textarea 
                     id="description" 
                     name="description" 
-                    placeholder="Community description">
-                </textarea>
+                    placeholder="Community description"
+                    class="w-full"></textarea>
             </label>
         </div>
-        <button type="submit">Add Community</button>
+        <button 
+            type="submit"
+            class="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">
+            Add Community
+        </button>
     </form>
 {/if}
