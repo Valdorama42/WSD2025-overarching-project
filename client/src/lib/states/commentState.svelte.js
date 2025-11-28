@@ -27,6 +27,22 @@ const useCommentState = () => ({
             commentState[postId] = comments.filter((comment) => comment.id !== commentId);
         });
     },
+    upVoteComment: (communityId, postId, commentId) => {
+        commentsApi.upVote(communityId, postId, commentId).then((updatedComment) => {
+            const comments = commentState[postId] || [];
+            commentState[postId] = comments.map((comment) =>
+                comment.id === commentId ? updatedComment : comment
+            );
+        });
+    },
+    downVoteComment: (communityId, postId, commentId) => {
+        commentsApi.downVote(communityId, postId, commentId).then((updatedComment) => {
+            const comments = commentState[postId] || [];
+            commentState[postId] = comments.map((comment) =>
+                comment.id === commentId ? updatedComment : comment
+            );
+        });
+    },
 });
 
 export { initComments, useCommentState };

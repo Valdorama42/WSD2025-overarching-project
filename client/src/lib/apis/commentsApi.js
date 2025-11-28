@@ -33,5 +33,27 @@ const deleteComment = async (communityId, postId, commentId) => {
     return await response.json();
 };
 
-export { readComments, createComment, deleteComment };
+const upVote = async (communityId, postId, commentId) => {
+    const response = await authFetch(
+        `${PUBLIC_API_URL}/api/communities/${communityId}/posts/${postId}/comments/${commentId}/upvote`, {
+        method: 'POST',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to upvote comment');
+    };
+    return await response.json();
+};
+
+const downVote = async (communityId, postId, commentId) => {
+    const response = await authFetch(
+        `${PUBLIC_API_URL}/api/communities/${communityId}/posts/${postId}/comments/${commentId}/downvote`, {
+        method: 'POST',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to downvote comment');
+    };
+    return await response.json();
+};
+
+export { readComments, createComment, deleteComment, upVote, downVote };
 
