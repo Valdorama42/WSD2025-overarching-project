@@ -11,6 +11,7 @@
 
 <header>
     <a href="/">Home</a>
+    <a href="/communities">Communities</a>
     <br/>
 
     {#if authState.user} <!-- Logged in -->

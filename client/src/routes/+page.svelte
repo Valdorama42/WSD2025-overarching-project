@@ -1,6 +1,11 @@
 <script>
     import { useAuthState } from "$lib/states/authState.svelte.js";
+    import HomePageList from "$lib/components/homePage/HomePageList.svelte";
+    import { initHomePage } from "$lib/states/homePageState.svelte";
+    
     const authState = useAuthState();
+
+    initHomePage();
 </script>
 
 <svelte:head>
@@ -12,3 +17,5 @@
 {#if authState.user}
     <a href="/communities">Go to communities</a>
 {/if}
+
+<HomePageList />

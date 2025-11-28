@@ -67,4 +67,13 @@ const downVote = async (communityId, postId) => {
     return await response.json();
 };
 
-export { readPosts, readPost, createPost, deletePost, upVote, downVote };
+const readHomePagePosts = async () => {
+    const response = await fetch(
+        `${PUBLIC_API_URL}/api/homepage`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch home page posts');
+    };
+    return await response.json();
+};
+
+export { readPosts, readPost, createPost, deletePost, upVote, downVote, readHomePagePosts };
