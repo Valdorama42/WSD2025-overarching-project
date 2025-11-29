@@ -38,17 +38,33 @@
                        focus:outline-none focus:ring-4 focus:ring-indigo-200 
                        focus:border-indigo-500 transition"
             />
+        
             <label 
                 for="name"
-                class="absolute text-gray-500 text-sm left-4 top-3 
-                       transition-all duration-200
-                       peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400
-                       peer-focus:-top-3 peer-focus:text-xs peer-focus:text-indigo-600
-                       bg-white/70 px-1 rounded"
+                class="absolute left-4 text-gray-500 text-sm 
+                       transition-all duration-200 bg-white/70 px-1 rounded pointer-events-none
+        
+                       /* initial position */
+                       top-3
+        
+                       /* when empty */
+                       peer-placeholder-shown:top-3 
+                       peer-placeholder-shown:text-gray-400
+        
+                       /* when focused OR has text */
+                       peer-focus:-top-3
+                       peer-focus:text-xs 
+                       peer-focus:text-indigo-600
+        
+                       peer-not-placeholder-shown:-top-3
+                       peer-not-placeholder-shown:text-xs
+                       peer-not-placeholder-shown:text-gray-600
+                "
             >
                 Community Name
             </label>
         </div>
+        
 
         <!-- Description -->
         <div class="relative mb-6">
@@ -61,18 +77,33 @@
                        focus:outline-none focus:ring-4 focus:ring-indigo-200 
                        focus:border-indigo-500 transition resize-none"
             ></textarea>
-
+        
             <label 
                 for="description"
-                class="absolute text-gray-500 text-sm left-4 top-3 
-                       transition-all duration-200
-                       peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400
-                       peer-focus:-top-3 peer-focus:text-xs peer-focus:text-indigo-600
-                       bg-white/70 px-1 rounded"
+                class="absolute left-4 text-gray-500 text-sm 
+                       transition-all duration-200 bg-white/70 px-1 rounded pointer-events-none
+        
+                       /* initial */
+                       top-3 
+        
+                       /* empty */
+                       peer-placeholder-shown:top-3
+                       peer-placeholder-shown:text-gray-400
+        
+                       /* focused OR filled */
+                       peer-focus:-top-3
+                       peer-focus:text-xs 
+                       peer-focus:text-indigo-600
+        
+                       peer-not-placeholder-shown:-top-3
+                       peer-not-placeholder-shown:text-xs
+                       peer-not-placeholder-shown:text-gray-600
+                "
             >
                 Description
             </label>
         </div>
+        
 
         <!-- Submit Button -->
         <button 
