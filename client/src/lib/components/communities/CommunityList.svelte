@@ -10,7 +10,7 @@
     }
 </script>
 
-<ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10 mx-auto max-w-6xl">
+<ul class="grid gap-6 md:grid-cols-2 mt-10 mx-auto max-w-6xl">
     {#each communityState.communities as community}
         <li class="group relative rounded-2xl border bg-white shadow-sm overflow-hidden 
                    hover:shadow-xl hover:-translate-y-1 transition-all duration-300">

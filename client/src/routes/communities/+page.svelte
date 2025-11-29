@@ -21,7 +21,15 @@
     Communities
 </h1>
 
+
 <div>
+    <!-- Form Section -->
+    {#if authState.user}
+        <section class="mx-auto w-full">
+            <CommunityForm />
+        </section>
+    {/if}
+
     {#if communityState.communities.length === 0}
     <div class="flex flex-col items-center text-center py-20 text-gray-600">
 
@@ -68,15 +76,7 @@
         </div>
 
     </div>
-{/if}
-
-</div>
-
-<div>
-    <!-- Form Section -->
-    <section class="mx-auto w-full">
-        <CommunityForm />
-    </section>
+    {/if}
 
     <!-- List Section -->
     <section>

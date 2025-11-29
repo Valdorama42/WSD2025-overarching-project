@@ -6,6 +6,10 @@
     
     let { children } = $props();
 
+    $effect(() => {
+        document.body.classList.add("e2e-ready");
+    })
+
 </script>
 
 <div class="flex flex-col h-full">
